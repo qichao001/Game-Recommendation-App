@@ -39,6 +39,7 @@ public class TwitchClient {
             try {
                 gameName = URLEncoder.encode(gameName, "UTF-8");
             } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
                 throw new TwitchException("URL conversion failed");
             }
             return String.format(url, gameName);
@@ -50,6 +51,7 @@ public class TwitchClient {
             gameId = URLEncoder.encode(gameId, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            throw new TwitchException("URL conversion failed");
         }
         return String.format(url, gameId, limit);
     }
@@ -74,6 +76,7 @@ public class TwitchClient {
         try {
             return httpClient.execute(request, responseHandler);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new TwitchException("Failed to get response body from Twitch");
         }
     }
@@ -83,6 +86,7 @@ public class TwitchClient {
         try {
             return Arrays.asList(mapper.readValue(data, Game[].class));
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
             throw new TwitchException("Failed to parse json data from Twitch");
         }
     }
@@ -92,6 +96,7 @@ public class TwitchClient {
         try {
             return Arrays.asList(mapper.readValue(data, Item[].class));
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
             throw new TwitchException("Failed to parse json data from Twitch");
         }
     }
@@ -119,6 +124,7 @@ public class TwitchClient {
                 String boardcastName = URLEncoder.encode(item.getBroadcasterName(), "UTF-8");
                 item.setUrl(String.format(TWITCH_BASE_URL, boardcastName));
             } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
                 throw new TwitchException("URL conversion failed");
             }
         }
