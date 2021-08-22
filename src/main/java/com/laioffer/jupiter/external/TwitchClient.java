@@ -31,7 +31,6 @@ public class TwitchClient {
     private static final String TWITCH_BASE_URL = "https://www.twitch.tv/%s";
     private static final int DEFAULT_SEARCH_LIMIT = 20;
 
-
     private String buildGameURL (String url, String gameName, int limit) {
         if (gameName == null) {
             return String.format(url, limit);
